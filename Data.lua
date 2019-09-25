@@ -3,6 +3,7 @@ local JellyDep = LibStub("AceAddon-3.0"):GetAddon("JellyDepositLocations")
 JellyDep.data = {
 	[0] =
 	{
+		-- Data from Buuloki, Sipder2, and Busena
 		{33.12, 71.66},
 		{31.71, 74.54},
 		{28.22, 74.87},
