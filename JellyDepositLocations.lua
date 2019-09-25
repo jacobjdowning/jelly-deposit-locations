@@ -1,9 +1,14 @@
 local JellyDep = LibStub("AceAddon-3.0"):NewAddon("JellyDepositLocations")
+local L = LibStub("AceLocale-3.0"):GetLocale("JellyDepositLocations", false)
+
 local GatherMate2 = LibStub("AceAddon-3.0"):GetAddon("GatherMate2", true)
+local Routes = LibStub("AceAddon-3.0"):GetAddon("Routes", true)
+
 local GM_Config = GatherMate2:GetModule("Config")
 
+
 local DB_NAME = "Jelly"
-local NODE_IDS = {["deposit"] = 0}
+local NODE_IDS = {["Jelly Deposit"] = 0}
 local icon_path = "Interface\\AddOns\\JellyDepositLocations\\Artwork\\"
 local TEXTURES = {[0] = icon_path.."honey.tga"}
 
@@ -14,16 +19,7 @@ local SHOW_VALUE = {
 	["never"]	= false
 }
 
-local Routes = LibStub("AceAddon-3.0"):GetAddon("Routes", true)
 if Routes then
-	
-	-- localization hack to avoid error when choosing Stormsong Routes
-	local routes_local = LibStub("AceLocale-3.0"):GetLocale("Routes")
-	routes_local["GatherMate2Jelly"] = "Jelly"
-	local LN = LibStub("AceLocale-3.0"):GetLocale("GatherMate2Nodes", true)
-	LN["deposit"] = "deposit"
-
-
 	-- Hack to adjust translate_db_type in Routes so 
 	-- jelly routes can be catagorized correctly
 	local originalAppendNodes = Routes.plugins["GatherMate2"].AppendNodes
@@ -48,7 +44,6 @@ if not GatherMate2 then
 end
 
 local function setDB()
-	print("Adding Jelly database")
 	GatherMate2:RegisterDBType(DB_NAME, {})
 	GatherMate2.nodeIDs[DB_NAME] = NODE_IDS
 	local reverse = GatherMate2:CreateReversedTable(NODE_IDS)
@@ -104,12 +99,12 @@ local optionsTable = {
 		desc = {
 			order = 0,
 			type = "description",
-			name = "Imports Jelly Deposit Locations in Stormsong Valley for Honeyback Hive Reputation"
+			name = L["Imports Jelly Deposit Locations in Stormsong Valley for Honeyback Hive Reputation"]
 		},
 		show = {
 			order = 1,
 			type = "toggle",
-			name = "Show Nodes",
+			name = L["Show Nodes"],
 			get = getShow,
 			set = toggleShow
 		},
@@ -127,7 +122,7 @@ end
 
 function JellyDep:OnEnable()
 	local Config = GatherMate2:GetModule("Config")
-	Config:RegisterModule("Jelly", optionsTable)
+	Config:RegisterModule(L["Jelly"], optionsTable)
 
 	show = GatherMate2.db.profile.show[DB_NAME]
 	if show and show == "always" and not DBisLoaded() then
