@@ -49,6 +49,7 @@ local function setDB()
 	local reverse = GatherMate2:CreateReversedTable(NODE_IDS)
 	GatherMate2.reverseNodeIDs[DB_NAME] = reverse
 	GatherMate2.nodeTextures[DB_NAME] = TEXTURES
+	GatherMate2.db.profile.cleanupRange[DB_NAME] = 0
 	
 	-- add all points
 	for node_id, positions in pairs(JellyDep.data) do
